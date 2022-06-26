@@ -19,35 +19,55 @@ namespace UnityChan
 		bool bQuickSwitch = false;	//Change Camera Position Quickly
 	
 	
-		void Start ()
-		{
-			// 各参照の初期化
-			standardPos = GameObject.Find ("CamPos").transform;
+		//void Start ()
+		//{
+		//	// 各参照の初期化
+		//	standardPos = GameObject.Find ("CamPos").transform;
 		
-			if (GameObject.Find ("FrontPos"))
-				frontPos = GameObject.Find ("FrontPos").transform;
+		//	if (GameObject.Find ("FrontPos"))
+		//		frontPos = GameObject.Find ("FrontPos").transform;
 
-			if (GameObject.Find ("JumpPos"))
-				jumpPos = GameObject.Find ("JumpPos").transform;
+		//	if (GameObject.Find ("JumpPos"))
+		//		jumpPos = GameObject.Find ("JumpPos").transform;
 
-			//カメラをスタートする
-			transform.position = standardPos.position;	
-			transform.forward = standardPos.forward;	
-		}
+		//	//カメラをスタートする
+		//	transform.position = standardPos.position;	
+		//	transform.forward = standardPos.forward;	
+		//}
 	
 		void FixedUpdate ()	// このカメラ切り替えはFixedUpdate()内でないと正常に動かない
 		{
-		
-			if (Input.GetButton ("Fire1")) {	// left Ctlr	
-				// Change Front Camera
-				setCameraPositionFrontView ();
-			} else if (Input.GetButton ("Fire2")) {	//Alt	
-				// Change Jump Camera
-				setCameraPositionJumpView ();
-			} else {	
-				// return the camera to standard position and direction
-				setCameraPositionNormalView ();
-			}
+            // 各参照の初期化
+            standardPos = GameObject.Find("CamPos").transform;
+            if (standardPos){
+                if (GameObject.Find("FrontPos"))
+                    frontPos = GameObject.Find("FrontPos").transform;
+
+                if (GameObject.Find("JumpPos"))
+                    jumpPos = GameObject.Find("JumpPos").transform;
+
+                //カメラをスタートする
+                transform.position = standardPos.position;
+                transform.forward = standardPos.forward;
+
+                if (Input.GetButton("Fire1"))
+                {   // left Ctlr	
+                    // Change Front Camera
+                    setCameraPositionFrontView();
+                }
+                else if (Input.GetButton("Fire2"))
+                {   //Alt	
+                    // Change Jump Camera
+                    setCameraPositionJumpView();
+                }
+                else
+                {
+                    // return the camera to standard position and direction
+                    setCameraPositionNormalView();
+                }
+            }
+
+            
 		}
 
 		void setCameraPositionNormalView ()
